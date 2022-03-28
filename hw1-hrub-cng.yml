@@ -1,0 +1,10 @@
+---
+- name: insert parametres
+  lineinfile:
+    backup: yes
+    backrefs: true
+    path: /etc/default/grub
+    regexp: "^(GRUB_CMDLINE_LINUX=\".*)\"$"
+    line: '\net.ifnames=0 biosdevname=0"'
+- name: applying
+  command: grub2-mkconfig

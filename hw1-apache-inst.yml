@@ -1,0 +1,35 @@
+---
+- name: Apache install
+  hosts: nodes
+  tasks:
+  
+    - name: install apache
+      dnf: name=httpd state=latest update_cache=yes
+  
+    - name: start httpd on bootup
+      service: name=httpd state=started
+  
+    - name: install firewalld
+      dnf: name=firewalld state=latest
+      
+    - name: start firewalld on bootup
+      service: name=firewalld state=started
+   
+    - name: open web ports
+      ansible.posix.firewalld:
+       service: "{{ item }}"
+       zone: public
+       permanent: yes
+       state: enabled
+      with_items:
+       - http
+       - https
+    
+    - name: check apache status
+      shell: service httpd status
+     
+    - name: create index.html
+      copy:
+       dest: "/var/www/html/index.html"
+       content: |
+        Welcome to my web server

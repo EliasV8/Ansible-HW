@@ -1,0 +1,22 @@
+---
+- name: Apache remove
+  hosts: nodes
+  tasks:
+  
+    - name: delete index.html
+     ignore_errors: yes
+     file:
+      state: absent
+      path: "/var/www/html/index.html"
+      
+    - name: remove httpd
+      dnf: name=httpd state=absent
+     
+    - name: close web ports
+      ansible.posix.firewalld:
+       service: "{{ item }}"
+       permanent: yes
+       state: disabled
+      with_items:
+       - http
+       - https
