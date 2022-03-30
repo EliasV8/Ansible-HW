@@ -1,0 +1,23 @@
+---
+- name: Users add
+  tasks:
+    - name: Add users
+      user:
+          name: "{{ item.uname }}"
+          createhome: yes
+          password: "{{ item.hashpwd }}"
+          update_password: on_create
+          comment: "{{ item.email }}"
+      with_items: "{{ users }}"
+      
+  vars:
+    users:
+    - uname: Alice
+      email: alice@example.com
+      hashpwd: $6$SH42OGdJtd1wa0zB$VWiJ.ck7nrm.1C6W5B1PPM1JjIEBixSnVQBmePLsST.KlPkmw/6H0cZxbgEQkvKxgPjBigNCPLQVwnsI69R0C0
+    - uname: Bob
+      email: bob@example.com
+      hashpwd: $6$EOAvJSgUygYvzFE7$msmr1pYGOgSMosxxHtgjiGnrIUjQAMClF4wvHcdcloA17CJzIh.Y4HGGgcj2VMS9UeGRBKTASp9roqIOw8gNt.
+    - uname: Carol
+      email: carol@example.com
+      hashpwd: $6$8pkIr.5XZa0XafkA$mcGsH.vzOP46edwPZk9NlkNqvj1kPpx.QNL2VALQ9qWW6CBvJ7qL/xzK5hD6L8Qmu.o976nKiyqer/Rirx/1d/
