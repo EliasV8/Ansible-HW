@@ -1,0 +1,34 @@
+---
+- name: apache install
+  tasks:
+  
+    - name: install apache
+      dnf: name=httpd state=latest update_cache=yes 
+      
+    - name: start httpd on bootup
+      service: name=httpd state=started enabled=yes
+  
+    - name: install firewalld
+      dnf: name=firewalld state=latest
+      
+    - name: start firewalld
+      service: name=firewalld state=started enabled=yes
+   
+    - name: open web ports
+      firewalld:
+       service: "{{ ports }}"
+       permanent: yes
+       state: enabled     
+      notify:
+        - restart fiewalld
+    
+    - name: check apache status
+      debug:
+      var: ansible_facts.services.httpd.state
+     
+    - name: create index.html
+      copy:
+       dest: "{{ file }}index.html"
+       content: "{{ text }}"        
+      notify:
+        - restart apache

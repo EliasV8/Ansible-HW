@@ -1,0 +1,19 @@
+---  
+- name: make directories
+  tasks:
+  
+    - name: сreate dir
+      file:
+        path="{{ upl_dir }}"
+        mode=0777
+        owner=ftp
+        group=ftp
+        state=directory
+        
+    - name: chmod dir
+      file:
+        path="{{ pub_dir }}"
+        mode=0555
+        owner=ftp
+        group=ftp
+        state=directory

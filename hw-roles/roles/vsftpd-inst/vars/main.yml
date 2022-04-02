@@ -1,0 +1,6 @@
+---
+    ports: ftp
+    pub_dir: /var/ftp/pub/
+    upl_dir: /var/ftp/pub/upload
+    sel_anon: ftpd_anon_write
+    conf: /etc/vsftpd/vsftpd.conf

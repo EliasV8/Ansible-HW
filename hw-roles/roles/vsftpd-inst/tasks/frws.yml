@@ -1,0 +1,18 @@
+---
+- name: firewalld install
+  tasks:
+  
+    - name: install firewalld
+      dnf: name=firewalld state=latest
+      
+    - name: start firewalld
+      service: name=firewalld state=started enabled=yes
+   
+    - name: open ftp ports
+      firewalld:
+       service: "{{ ports }}"
+       permanent: yes
+       state: enabled     
+      notify:
+        - restart fiewalld
+ 

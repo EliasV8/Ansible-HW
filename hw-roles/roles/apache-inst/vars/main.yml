@@ -1,0 +1,6 @@
+---
+    ports:
+      - http
+      - https
+    file: /var/www/html/
+    text: Welcome to my web server

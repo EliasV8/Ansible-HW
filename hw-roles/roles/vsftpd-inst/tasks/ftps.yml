@@ -1,0 +1,15 @@
+---
+- name: vsftpd install
+  tasks:
+  
+    - name: install vsftpd
+      dnf: name=vsftpd state=latest update_cache=yes
+  
+    - name: start vsftpd on bootup
+      service: name=httpd state=started enabled=yes
+   
+    - name: selinux anon write allow
+      seboolean:
+        name: "{{ sel_anon }}"
+        state: yes
+        persistent: yes

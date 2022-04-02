@@ -1,0 +1,38 @@
+---  
+- name: vsftpd config
+  tasks:
+
+    - name: anon enable
+      replace:
+        path: "{{ conf }}"
+        regexp: 'anonymous_enable=NO'
+        replace: '#anonymous_enable=NO'
+        backup: true    
+      ignore_errors: yes
+      
+    - name: anon upload enable
+      replace:
+        path: "{{ conf }}"
+        regexp: '#anon_upload_enable=YES'
+        replace: 'anon_upload_enable=YES'
+        backup: true 
+      ignore_errors: yes
+        
+    - name: anon mkdir enable
+      replace:
+        path: "{{ conf }}"
+        regexp: '#anon_mkdir_write_enable=YES'
+        replace: 'anon_mkdir_write_enable=YES'
+        backup: true 
+      ignore_errors: yes        
+        
+    - name: anon mkdir enable
+      replace:
+        path: "{{ conf }}"
+        regexp: '#anon_mkdir_write_enable=YES'
+        replace: 'anon_mkdir_write_enable=YES'
+        backup: true 
+      ignore_errors: yes        
+
+  notify:
+    - restart vsftpd

@@ -1,0 +1,13 @@
+---
+
+- name: vsftpd inst
+  import_tasks: ftps.yml
+  
+- name: make dirs
+  import_tasks: mkd.yml
+  
+- name: vsftpd cfg
+  import_tasks: ftpc.yml
+  
+- name: firewalld inst
+  import_tasks: frws.yml
