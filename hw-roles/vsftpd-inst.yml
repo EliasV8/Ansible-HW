@@ -1,0 +1,5 @@
+---
+- name: VSFTPd install
+  hosts: nodes
+  roles:
+    - vsftpd-inst
