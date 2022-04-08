@@ -7,13 +7,13 @@
       dnf: name=httpd state=latest update_cache=yes
   
     - name: start httpd on bootup
-      service: name=httpd state=started
+      service: name=httpd state=started enabled=yes
   
     - name: install firewalld
       dnf: name=firewalld state=latest
       
     - name: start firewalld on bootup
-      service: name=firewalld state=started
+      service: name=firewalld state=started enabled=yes
    
     - name: open web ports
       ansible.posix.firewalld:
@@ -24,12 +24,18 @@
       with_items:
        - http
        - https
-    
-    - name: check apache status
-      shell: service httpd status
-     
+        
     - name: create index.html
       copy:
        dest: "/var/www/html/index.html"
        content: |
         Welcome to my web server
+        
+    - name: restart apache
+      service: name=httpd state=restarted
+
+    - name: restart firewalld
+      service: name=firewalld state=restarted
+
+    - name: check apache status
+      shell: service httpd status
